@@ -3,6 +3,10 @@ package ctdl.simplewebwithpriorityqueue.crud;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+// Method to invoke from Rest
+@Service
 public class ArticleHardcodedService {
 
     // Use priority queue
@@ -11,7 +15,12 @@ public class ArticleHardcodedService {
 
     // Add static articles
     static {
-
+	articles.add(new Article(++idCounter, "zzBBc", "1. The first article"));
+	articles.add(new Article(++idCounter, "zzBBc", "2. The second article"));
+	articles.add(new Article(++idCounter, "zzBBc", "3. The third article"));
+	articles.add(new Article(++idCounter, "zzBBc", "4. The forth article"));
+	articles.add(new Article(++idCounter, "zzBBc", "5. The fifth article"));
+	articles.add(new Article(++idCounter, "zzBBc", "6. The sixth article"));
     }
 
     public List<Article> findAll() {

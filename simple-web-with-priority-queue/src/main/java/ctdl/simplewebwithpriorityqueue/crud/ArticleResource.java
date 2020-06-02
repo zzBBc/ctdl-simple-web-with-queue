@@ -4,20 +4,24 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200"})
+// Beans returned are converted to/from JSON/XML
 @RestController
+// REST API
 public class ArticleResource {
-
+    // Retrieve details from business service
     @Autowired
     private ArticleHardcodedService articleManagementService;
 
@@ -41,8 +45,15 @@ public class ArticleResource {
 	return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/authors/{username}/articles/")
+    @PutMapping("/authors/{username}/articles/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable String username, @PathVariable long id, @RequestBody Article article){
+	Article articleUpdated = articleManagementService.save(article);
+
+	return new ResponseEntity<>(article, HttpStatus.OK);
+    }
+
+    @PostMapping("/authors/{username}/articles/")
+    public ResponseEntity<Void> createArticle(@PathVariable String username, @RequestBody Article article){
 	Article createdArticle = articleManagementService.save(article);
 
 	// Location

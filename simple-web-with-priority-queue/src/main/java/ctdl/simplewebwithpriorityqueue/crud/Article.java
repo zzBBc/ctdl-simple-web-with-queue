@@ -1,5 +1,6 @@
 package ctdl.simplewebwithpriorityqueue.crud;
 
+// POJO (Plain Old Java Object)
 public class Article {
     private Long id;
     private String username;
