@@ -1,4 +1,20 @@
+/* Use bootstrap framework 
+class="container": default grid, center
+class="table"
+class="table-striped"
+class="thead-dark"
+class="btn-dark"
+*/
+
 @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css);
+
+body {
+  /*background-color: rgba(0, 0, 0, .6);*/
+  /* background-color: rgba(80, 85, 87, .8);
+  background-color: #ffd635;
+  background-color: rgb(0, 121, 211); */
+  background-color: #f6f6f6
+}
 
 .App {
   text-align: center;
@@ -38,3 +54,28 @@
     transform: rotate(360deg);
   }
 }
+
+.article {
+  margin-top: 2%;
+  /* background-color: #f0e6e6; */
+  background-color: hsla(0, 0%, 100%, .5);
+  border-radius: 2px;
+  border-width: 5px;
+}
+
+.entry-title a {
+  color: #282c34;
+}
+
+.entry-info{
+  font-style: italic;
+}
+
+.sep {
+  padding-left: 7%;
+}
+
+.entry-description {
+  padding-left: 3%;
+}
+

@@ -3,6 +3,7 @@ import ArticleDataService from "../service/ArticleDataService";
 
 const AUTHOR = 'zzBBc'
 
+// Listing all the articles for an author
 class ListArticlesComponent extends Component{
     constructor(props){
         super(props)
@@ -13,8 +14,12 @@ class ListArticlesComponent extends Component{
 
         this.deleteArticleClicked = this.deleteArticleClicked.bind(this)
         this.updateArticleClicked = this.updateArticleClicked.bind(this)
-        this.updateArticleClicked = this.updateArticleClicked.bind(this)
+        this.addArticleClicked = this.addArticleClicked.bind(this)
         this.refreshArticles = this.refreshArticles.bind(this)
+    }
+
+    componentDidMount(){
+        this.refreshArticles();
     }
 
     refreshArticles(){
@@ -32,13 +37,13 @@ class ListArticlesComponent extends Component{
             })
     }
 
-    updateArticleClicked(id){
-        console.log('update ' + id)
-        this.props.history.push(`/articles/${id}`)
+    addArticleClicked(){
+        this.props.history.push(`/admin/articles/-1`)
     }
 
-    addArticleClicked(){
-        this.props.history.push(`/articles/-1`)
+    updateArticleClicked(id){
+        console.log('update ' + id)
+        this.props.history.push(`/admin/articles/${id}`)
     }
 
     render(){
@@ -46,16 +51,16 @@ class ListArticlesComponent extends Component{
 
         return (
             <div className="container">
-                <h3>All Articles</h3>
+                <h3>Administrator</h3>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
-                    <table className="table">
-                        <thead>
+                    <table className="table table-striped">
+                        <thead className="thead-dark">
                             <tr>
-                                <th>Id</th>
-                                <th>Content</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Content</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,9 +68,9 @@ class ListArticlesComponent extends Component{
                                 this.state.articles.map(
                                     article =>
                                     <tr key={article.id}>
-                                        <td>{article.id}</td>
+                                        <th scope="row">{article.id}</th>
                                         <td>{article.content}</td>
-                                        <td><button className="btn btn-success" 
+                                        <td><button className="btn btn-secondary" 
                                             onClick={() => this.updateArticleClicked(article.id)}>Update</button>
                                         </td>
                                         <td><button className="btn btn-warning" 
@@ -76,7 +81,7 @@ class ListArticlesComponent extends Component{
                         </tbody>
                     </table>
                     <div className="row">
-                        <button className="btn btn-success"
+                        <button className="btn btn-secondary"
                             onClick={this.addArticleClicked}>Add</button>
                     </div>
                 </div>

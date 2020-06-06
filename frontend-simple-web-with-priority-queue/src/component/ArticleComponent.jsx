@@ -3,6 +3,7 @@ import ArticleDataService from '../service/ArticleDataService'
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 
 const AUTHOR = 'zzBBc'
+// Editing article details and creating a new article
 class ArticleComponent extends Component{
     constructor(props){
         super(props)
@@ -29,26 +30,6 @@ class ArticleComponent extends Component{
             }))
     }
 
-    onSubmit(values){
-        let username = AUTHOR
-
-        let article = {
-            id: this.state.id,
-            content: values.content
-        }
-
-        if(this.state.id === -1){
-            ArticleDataService.createArticle(username, article)
-                .then(() => this.props.history.push('/articles'))
-        }
-        else {
-            ArticleDataService.updateArticle(username, this.state.id, article)
-                .then(()=> this.props.history.push('/articles'))
-        }
-
-        console.log(values);
-    }
-
     validate(values){
         let errors = {}
         if(!values.content){
@@ -61,41 +42,62 @@ class ArticleComponent extends Component{
         return errors
     }
 
+    onSubmit(values){
+        let username = AUTHOR
+
+        let article = {
+            id: this.state.id,
+            content: values.content
+        }
+
+        if(this.state.id === -1){
+            ArticleDataService.createArticle(username, article)
+                .then(() => this.props.history.push('/admin/articles'))
+        }
+        else {
+            ArticleDataService.updateArticle(username, this.state.id, article)
+                .then(()=> this.props.history.push('/admin/articles'))
+        }
+
+        console.log(values);
+    }
+
     render(){
         let {content, id} = this.state
 
         return (
             <div>
-                 <h3>Article</h3>
-            <div className="container">
-                <Formik
-                    intitialVales={{id, content}}
-                    onSubmit={this.onSubmit}
-                    validateOnChange={false}
-                    validateOnBlur={false}
-                    validate={this.validate}
-                    enableReinitialize={true}
-                >
-                    {
-                        props => (
-                            <Form>
-                                <ErrorMessage name="content" component="div"
-                                    className="alert alert-warning"/>
-                                <fieldset className="form-group">
-                                    <label>Id</label>
-                                    <Field className="form-control" type="text" name="id" disabled />
-                                </fieldset>
-                                <fieldset className="form-group">
-                                    <label>Content</label>
-                                    <Field className="form-control" type="text" name="content" />
-                                </fieldset>
-                                <button className="btn btn-success" type="submit">Save</button>
-                            </Form>
-                        )
-                    }
-                </Formik>
+                <h3>Article</h3>
+                <div className="container">
+                    <Formik
+                        initialValues={{ id, content }}
+                        onSubmit={this.onSubmit}
+                        validateOnChange={false}
+                        validateOnBlur={false}
+                        validate={this.validate}
+                        enableReinitialize={true}
+                    >
+                        {
+                            (props) => (
+                                <Form>
+                                    <ErrorMessage name="content" component="div"
+                                        className="alert alert-warning" />
+                                    <fieldset className="form-group">
+                                        <label>Id</label>
+                                        <Field className="form-control" type="text" name="id" disabled />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Content</label>
+                                        <Field className="form-control" type="text" name="content" />
+                                    </fieldset>
+                                    <button className="btn btn-secondary" type="submit">Save</button>
+                                </Form>
+                            )
+                        }
+                    </Formik>
+
+                </div>
             </div>
-        </div>  
         )
     }
 }
