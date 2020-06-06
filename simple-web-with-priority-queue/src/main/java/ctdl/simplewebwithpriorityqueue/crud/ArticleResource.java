@@ -25,6 +25,17 @@ public class ArticleResource {
     @Autowired
     private ArticleHardcodedService articleManagementService;
 
+    // guest view
+    @GetMapping("/authors/{username}/guest_articles")
+    public List<Article> getGuestViewArticles(@PathVariable String username){
+	return articleManagementService.findGuestViewArticles();
+    }
+
+    @GetMapping("/authors/{username}/guest_articles/{id}")
+    public Article getGuestViewArticle(@PathVariable String username, @PathVariable long id) {
+	return articleManagementService.findGuestViewById(id);
+    }
+
     @GetMapping("/authors/{username}/articles")
     public List<Article> getAllArticles(@PathVariable String username){
 	return articleManagementService.findAll();
@@ -58,7 +69,7 @@ public class ArticleResource {
 
 	// Location
 	// Get current resource uri + {id}
-	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(createdArticle.getId()).toUri();
+	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdArticle.getId()).toUri();
 
 	return ResponseEntity.created(uri).build();
     }
