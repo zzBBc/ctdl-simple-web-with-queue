@@ -73,4 +73,13 @@ public class ArticleResource {
 
 	return ResponseEntity.created(uri).build();
     }
+
+    @PostMapping("/authors/{username}/guest_articles/")
+    public ResponseEntity<Void> createGuestArticle(@PathVariable String username, @RequestBody Article article){
+	Article createdArticle = articleManagementService.createGuest(article);
+
+	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdArticle.getId()).toUri();
+
+	return ResponseEntity.created(uri).build();
+    }
 }
