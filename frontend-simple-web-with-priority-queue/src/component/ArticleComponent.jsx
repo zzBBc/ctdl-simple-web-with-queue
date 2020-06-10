@@ -50,13 +50,17 @@ class ArticleComponent extends Component{
             content: values.content
         }
 
+        
+
         if(this.state.id === -1){
             ArticleDataService.createArticle(username, article)
-                .then(() => this.props.history.push('/admin/articles'))
+                .then(() => this.props.history.push('/articles'))
         }
         else {
             ArticleDataService.updateArticle(username, this.state.id, article)
-                .then(()=> this.props.history.push('/admin/articles'))
+                .then(() => {
+                    return this.props.history.push('/admin');
+                })
         }
 
         console.log(values);

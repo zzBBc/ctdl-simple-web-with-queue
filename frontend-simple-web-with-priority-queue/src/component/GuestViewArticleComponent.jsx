@@ -13,7 +13,6 @@ class GuestViewArticle extends Component {
         }
     }
 
-
     componentDidMount(){
         console.log(this.state.id)
 
@@ -25,7 +24,7 @@ class GuestViewArticle extends Component {
     }
 
     render(){
-        let {id, title, content} = this.state
+        let {title, content} = this.state
 
         return(
             <div>

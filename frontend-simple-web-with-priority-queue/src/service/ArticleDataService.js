@@ -34,6 +34,10 @@ class ArticleDataService{
     createArticle(name, article){
         return axios.post(`${AUTHOR_API_URL}/articles/`, article);
     }
+
+    updateGuestArticle(name, id, article){
+        return axios.put(`${AUTHOR_API_URL}/guest_articles/${id}`, article)
+    }
 }
 
 export default new ArticleDataService()
