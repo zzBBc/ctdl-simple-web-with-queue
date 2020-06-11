@@ -27,7 +27,7 @@ class ArticleDataService{
         return axios.delete(`${AUTHOR_API_URL}/articles/${id}`);
     }
  
-    updateArticle(name, id, article){
+    editArticle(name, id, article){
         return axios.put(`${AUTHOR_API_URL}/articles/${id}`, article);
     }
 
@@ -35,8 +35,8 @@ class ArticleDataService{
         return axios.post(`${AUTHOR_API_URL}/articles/`, article);
     }
 
-    updateGuestArticle(name, id, article){
-        return axios.put(`${AUTHOR_API_URL}/guest_articles/${id}`, article)
+    createGuestArticle(name, article){
+        return axios.post(`${AUTHOR_API_URL}/guest_articles/`, article)
     }
 }
 

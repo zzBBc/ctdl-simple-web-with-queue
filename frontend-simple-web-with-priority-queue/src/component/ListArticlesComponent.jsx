@@ -13,9 +13,9 @@ class ListArticlesComponent extends Component{
         }
 
         this.deleteArticleClicked = this.deleteArticleClicked.bind(this)
-        this.updateArticleClicked = this.updateArticleClicked.bind(this)
-        this.addArticleClicked = this.addArticleClicked.bind(this)
+        this.editArticleClicked = this.editArticleClicked.bind(this)
         this.refreshArticles = this.refreshArticles.bind(this)
+        this.updateArticleClicked = this.updateArticleClicked.bind(this)
     }
 
     componentDidMount(){
@@ -25,6 +25,7 @@ class ListArticlesComponent extends Component{
     refreshArticles(){
         ArticleDataService.retrieveAllArticles(AUTHOR)
             .then(response => {
+                // sort articles
                 this.setState({articles: response.data})
             })
     }
@@ -37,15 +38,22 @@ class ListArticlesComponent extends Component{
             })
     }
 
-    addArticleClicked(){
-        this.props.history.push(`/admin/articles/-1`)
-    }
-
-    updateArticleClicked(id){
-        console.log('update ' + id)
+    editArticleClicked(id){
+        console.log('edit ' + id)
         this.props.history.push(`/admin/articles/${id}`)
     }
 
+    // Need to complete
+    updateArticleClicked(id){
+        ArticleDataService.deleteArticle(AUTHOR, id)
+            .then(response => {
+                ArticleDataService.createGuestArticle(AUTHOR, response.data)
+                    .then(response => {
+                        this.setState({message: `Delete and post to guest view of article ${id} successful`})
+                        this.refreshArticles()
+                    })
+            })
+    }
     render(){
         console.log('render')
 
@@ -59,6 +67,7 @@ class ListArticlesComponent extends Component{
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Content</th>
+                                <th scope="col">Edit</th>
                                 <th scope="col">Update</th>
                                 <th scope="col">Delete</th>
                             </tr>
@@ -71,6 +80,9 @@ class ListArticlesComponent extends Component{
                                         <th scope="row">{article.id}</th>
                                         <td>{article.content}</td>
                                         <td><button className="btn btn-secondary" 
+                                            onClick={() => this.editArticleClicked(article.id)}>Edit</button>
+                                        </td>
+                                        <td><button className="btn btn-secondary" 
                                             onClick={() => this.updateArticleClicked(article.id)}>Update</button>
                                         </td>
                                         <td><button className="btn btn-warning" 
@@ -80,10 +92,6 @@ class ListArticlesComponent extends Component{
                             }
                         </tbody>
                     </table>
-                    <div className="row">
-                        <button className="btn btn-secondary"
-                            onClick={this.addArticleClicked}>Add</button>
-                    </div>
                 </div>
             </div>
         )

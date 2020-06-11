@@ -10,7 +10,9 @@ class ArticleComponent extends Component{
 
         this.state = {
             id: this.props.match.params.id,
-            content: ''
+            title: '',
+            description: '',
+            content: '',
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -26,6 +28,8 @@ class ArticleComponent extends Component{
 
         ArticleDataService.retrieveArticle(AUTHOR, this.state.id)
             .then(response => this.setState({
+                title: response.data.title,
+                description: response.data.description,
                 content: response.data.content
             }))
     }
@@ -38,6 +42,12 @@ class ArticleComponent extends Component{
         else if (values.content.length < 5){
             errors.content = 'Enter at least 5 characters in Content'
         }
+        if(!values.title){
+            errors.content = 'Enter a Title'
+        }
+        if(!values.description){
+            errors.content = 'Enter a Description'
+        }
 
         return errors
     }
@@ -49,17 +59,19 @@ class ArticleComponent extends Component{
             id: this.state.id,
             content: values.content
         }
-
-        
-
+ 
         if(this.state.id === -1){
+            console.log(article)
+            // ArticleDataService.createArticle(username, article)
             ArticleDataService.createArticle(username, article)
-                .then(() => this.props.history.push('/articles'))
+                .then(() => {
+                    return this.props.history.push('/')
+                })
         }
         else {
-            ArticleDataService.updateArticle(username, this.state.id, article)
-                .then(() => {
-                    return this.props.history.push('/admin');
+            ArticleDataService.editArticle(username, this.state.id, article)
+                .then((article) => {
+                    return this.props.history.push('/');
                 })
         }
 
@@ -67,14 +79,14 @@ class ArticleComponent extends Component{
     }
 
     render(){
-        let {content, id} = this.state
+        let {id, title, description, content} = this.state
 
         return (
             <div>
                 <h3>Article</h3>
                 <div className="container">
                     <Formik
-                        initialValues={{ id, content }}
+                        initialValues={{ id, title, description, content }}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -89,6 +101,14 @@ class ArticleComponent extends Component{
                                     <fieldset className="form-group">
                                         <label>Id</label>
                                         <Field className="form-control" type="text" name="id" disabled />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Title</label>
+                                        <Field className="form-control" type="text" name="title" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Description</label>
+                                        <Field className="form-control" type="text" name="description" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Content</label>
