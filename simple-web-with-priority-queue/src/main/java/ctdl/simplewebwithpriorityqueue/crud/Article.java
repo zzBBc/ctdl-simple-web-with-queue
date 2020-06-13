@@ -3,26 +3,47 @@ package ctdl.simplewebwithpriorityqueue.crud;
 // POJO (Plain Old Java Object)
 public class Article {
     private Long id;
-    private String username;
     private String description;
     private String link;
     private String title;
     private String content;
     private int countViewer;
+    private String username;
+    //private Time time;
 
     public Article() {
 
     }
 
 
+    //    public Time getTime() {
+    //	return time;
+    //    }
+    //
+    //
+    //    public void setTime(Time time) {
+    //	this.time = time;
+    //    }
+
+
     public Article(Long id, String username, String title, String description, String content) {
 	this.id = id;
-	this.username = username;
 	this.content = content;
 	this.description = description;
 	this.title = title;
+	this.username = username;
 	setLink();
     }
+
+    public String getUsername() {
+	return username;
+    }
+
+
+    public void setUsername(String username) {
+	this.username = username;
+    }
+
 
     public Long getId() {
 	return id;
@@ -31,15 +52,6 @@ public class Article {
 	this.id = id;
 	setLink();
     }
-
-
-    public String getUsername() {
-	return username;
-    }
-    public void setUsername(String username) {
-	this.username = username;
-    }
-
 
     public String getContent() {
 	return content;

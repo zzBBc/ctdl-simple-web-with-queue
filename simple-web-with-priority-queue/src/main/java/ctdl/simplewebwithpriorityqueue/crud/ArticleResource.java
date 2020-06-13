@@ -36,44 +36,27 @@ public class ArticleResource {
 	return articleManagementService.findGuestViewById(id);
     }
 
-    @GetMapping("/authors/{username}/articles")
-    public List<Article> getAllArticles(@PathVariable String username){
-	return articleManagementService.findAll();
+    // admin view
+    @GetMapping("/authors/{username}/articles/")
+    public Article getArticle(@PathVariable String username) {
+	return articleManagementService.getFirstArticle();
     }
 
-    @GetMapping("/authors/{username}/articles/{id}")
-    public Article getArticle(@PathVariable String username, @PathVariable long id) {
-	return articleManagementService.findById(id);
-    }
-
-    @DeleteMapping("/authors/{username}/articles/{id}")
-    public ResponseEntity<Void> deleteArticle(@PathVariable String username, @PathVariable long id){
-	Article article = articleManagementService.deleteById(id);
-
-	if(article != null)
-	    return ResponseEntity.noContent().build();
-
-	return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/authors/{username}/articles/{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable String username, @PathVariable long id, @RequestBody Article article){
-	Article articleUpdated = articleManagementService.save(article);
+    // edit admin articles
+    @PutMapping("/authors/{username}/articles/")
+    public ResponseEntity<Article> updateArticle(@PathVariable String username, @RequestBody Article article){
+	Article articleUpdated = articleManagementService.editArticle(article);
 
 	return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @PostMapping("/authors/{username}/articles/")
-    public ResponseEntity<Void> createArticle(@PathVariable String username, @RequestBody Article article){
-	Article createdArticle = articleManagementService.save(article);
-
-	// Location
-	// Get current resource uri + {id}
-	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdArticle.getId()).toUri();
-
-	return ResponseEntity.created(uri).build();
+    // create admin articles
+    @PostMapping("/authors/{username}/article/")
+    public void createArticle(@PathVariable String username, @RequestBody Article article) {
+	Article createdArticle = articleManagementService.createArticle(article);
     }
 
+    // create guest articles
     @PostMapping("/authors/{username}/guest_articles/")
     public ResponseEntity<Void> createGuestArticle(@PathVariable String username, @RequestBody Article article){
 	Article createdArticle = articleManagementService.createGuest(article);
@@ -81,5 +64,18 @@ public class ArticleResource {
 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdArticle.getId()).toUri();
 
 	return ResponseEntity.created(uri).build();
+    }
+
+    // delete admin article
+    @DeleteMapping("/authors/{username}/articles/")
+    public Article deleteArticle(@PathVariable String username) {
+	Article article = articleManagementService.deleteFirstArticle();
+	if(article != null) {
+	    ResponseEntity.noContent().build();
+	    return article;
+	}
+
+	ResponseEntity.notFound().build();
+	return null;
     }
 }
