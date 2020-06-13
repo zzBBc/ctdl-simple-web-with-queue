@@ -3,8 +3,7 @@ import ArticleDataService from '../service/ArticleDataService'
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 
 const AUTHOR = 'zzBBc'
-// Editing article details
-class ArticleComponent extends Component{
+class CreateArticle extends Component {
     constructor(props){
         super(props)
 
@@ -17,16 +16,9 @@ class ArticleComponent extends Component{
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
     }
-
+    
     componentDidMount(){
-        ArticleDataService.retrieveArticle(AUTHOR)
-            .then(response => this.setState({
-                title: response.data.title,
-                description: response.data.description,
-                content: response.data.content
-            }))
-
-        console.log(this.state)
+        return
     }
 
     validate(values){
@@ -53,15 +45,17 @@ class ArticleComponent extends Component{
         let username = AUTHOR
 
         let article = {
+            id: values.id,
             title: values.title,
             description: values.description,
             content: values.content
         }
 
-        ArticleDataService.editArticle(username, article)
-            .then((article) => {
-                return this.props.history.push('/admin');
-                })
+        // ArticleDataService.createArticle(username, article)
+        ArticleDataService.createArticle(username, article)
+            .then(() => {
+                return this.props.history.push('/')
+            })
 
         console.log(values);
     }
@@ -114,4 +108,4 @@ class ArticleComponent extends Component{
     }
 }
 
-export default ArticleComponent
+export default CreateArticle

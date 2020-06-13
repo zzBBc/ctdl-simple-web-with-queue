@@ -15,24 +15,20 @@ class ArticleDataService{
         return axios.get(`${AUTHOR_API_URL}/guest_articles/${id}`)
     }
 
-    retrieveAllArticles(name){
+    retrieveArticle(name){
         return axios.get(`${AUTHOR_API_URL}/articles/`);
     }
-
-    retrieveArticle(name, id){
-        return axios.get(`${AUTHOR_API_URL}/articles/${id}`);
-    }
-
-    deleteArticle(name, id){
-        return axios.delete(`${AUTHOR_API_URL}/articles/${id}`);
+    
+    deleteArticle(name){
+        return axios.delete(`${AUTHOR_API_URL}/articles/`);
     }
  
-    editArticle(name, id, article){
-        return axios.put(`${AUTHOR_API_URL}/articles/${id}`, article);
+    editArticle(name, article){
+        return axios.put(`${AUTHOR_API_URL}/articles/`, article);
     }
 
     createArticle(name, article){
-        return axios.post(`${AUTHOR_API_URL}/articles/`, article);
+        return axios.post(`${AUTHOR_API_URL}/article/`, article);
     }
 
     createGuestArticle(name, article){
