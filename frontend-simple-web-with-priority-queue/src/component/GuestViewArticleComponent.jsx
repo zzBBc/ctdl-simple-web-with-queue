@@ -9,7 +9,8 @@ class GuestViewArticle extends Component {
         this.state = {
             id: this.props.match.params.id,
             title: '',
-            content: ''
+            content: '',
+            time: ''
         }
     }
 
@@ -19,18 +20,20 @@ class GuestViewArticle extends Component {
         ArticleDataService.retrieveGuestArticle(AUTHOR, this.state.id)
             .then(response => this.setState({
                 content: response.data.content,
-                title: response.data.title
+                title: response.data.title,
+                time: response.data.time
             }))
     }
 
     render(){
-        let {title, content} = this.state
+        let {title, content, time} = this.state
 
         return(
             <div>
                 <h3>{title}</h3>
                 <div className="container">
-                    <h4>Post on {} by zzBBc</h4>
+                    <div className="entry-info">    Post on {time} by zzBBc</div>
+                    <br></br>
                     <p>{content}</p>
                 </div>
             </div>

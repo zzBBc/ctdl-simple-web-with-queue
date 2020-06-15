@@ -30,21 +30,21 @@ class AdminArticle extends Component {
             .then(response => this.setState({
                 title: response.data.title,
                 description: response.data.description,
-                content: response.data.content
+                content: response.data.content,
             }))
     }
 
-    editArticleClicked(id){
-        console.log('edit ' + id)
+    editArticleClicked(){
+        console.log('edit ')
         this.props.history.push(`/admin/articles/`)
     }
 
-    updateArticleClicked(id){
+    updateArticleClicked(){
         ArticleDataService.deleteArticle(AUTHOR)
             .then(response => {
                 ArticleDataService.createGuestArticle(AUTHOR, response.data)
                     .then(response => {
-                        this.setState({message: `Delete and post to guest view of article ${id} successful`})
+                        this.setState({message: `Delete and post article to guest view successful`})
                         this.refreshArticles()
                     })
             })
@@ -53,7 +53,7 @@ class AdminArticle extends Component {
     deleteArticleClicked(){
         ArticleDataService.deleteArticle(AUTHOR)
             .then(response => {
-                this.setState({message: `Delete of article successful`})
+                this.setState({message: `Delete article successful`})
                 this.refreshArticles()
             })
     }
@@ -66,17 +66,16 @@ class AdminArticle extends Component {
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <h3>{title}</h3>
                 <div className="container">
-                    <h5>Post on {} by zzBBc</h5>
                     <p>{content}</p>
                 </div>
                 <ButtonToolbar aria-label="Toolbar with button groups">
                     <ButtonGroup className="mr-2" aria-label="First group">
                         <Button variant="secondary"
-                            onClick={() => this.editArticleClicked(this.state.id)}>Edit</Button>
+                            onClick={() => this.editArticleClicked()}>Edit</Button>
                     </ButtonGroup>
                     <ButtonGroup className="mr-2" aria-label="Second group">
                         <Button variant="secondary"
-                            onClick={() => this.updateArticleClicked(this.state.id)}>Update</Button>
+                            onClick={() => this.updateArticleClicked()}>Update</Button>
                         <Button variant="warning"
                             onClick={() => this.deleteArticleClicked()}>Delete</Button>
                     </ButtonGroup>

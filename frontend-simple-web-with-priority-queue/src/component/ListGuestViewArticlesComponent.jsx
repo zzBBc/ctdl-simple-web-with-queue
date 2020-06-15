@@ -39,7 +39,7 @@ class ListGuestViewArticles extends Component {
                         <article id={article.id} className="article" key={article.id}>
                             <header className="entry-header">
                                 <h4 className="entry-title">
-                                    <a href={article.link}>{article.title}</a>
+                                    <a href={`http://localhost:3000/articles/${article.id}`}>{article.title}</a>
                                 </h4>
                                 <div className="entry-info">
                                     <span className="sep">Posted on </span>
@@ -47,7 +47,8 @@ class ListGuestViewArticles extends Component {
                                     <span className="by-author"> by {AUTHOR}</span>
                                 </div>
                                 <div className="entry-description">
-                                    <p>{article.description} <a href={article.link}><Badge variant="secondary">Read more...</Badge></a></p>
+                                    <p>{article.description} <a 
+                                        href={`http://localhost:3000/articles/${article.id}`}><Badge variant="secondary">Read more...</Badge></a></p>
                                 </div>
                             </header>
                         </article>

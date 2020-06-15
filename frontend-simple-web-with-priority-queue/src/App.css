@@ -67,7 +67,8 @@ body {
   color: #282c34;
 }
 
-.entry-info{
+.entry-info,
+.container .container h5 {
   font-style: italic;
 }
 

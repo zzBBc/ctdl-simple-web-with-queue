@@ -10,7 +10,7 @@ class CreateArticle extends Component {
         this.state = {
             title: '',
             description: '',
-            content: '',
+            content: ''
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -68,7 +68,7 @@ class CreateArticle extends Component {
                 <h3>Article</h3>
                 <div className="container">
                     <Formik
-                        initialValues={{ id, title, description, content }}
+                        initialValues={{ id, title, description, content}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
