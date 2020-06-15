@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar, Nav, NavDropdown, Form, FormControl, Button} from 'react-bootstrap'
+import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap'
 import './App.css';
 import AuthorApp from './component/AuthorApp';
 
@@ -22,10 +22,6 @@ class App extends Component{
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="http://localhost:3000/">Home</Nav.Link>
-                        <NavDropdown title="Link" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="http://localhost:3000/">Most Recent</NavDropdown.Item>
-                            <NavDropdown.Item href="#top">Top Articles</NavDropdown.Item>
-                        </NavDropdown>
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
