@@ -1,30 +1,27 @@
 package ctdl.simplewebwithpriorityqueue.crud;
 
+import java.time.Instant;
+
 // POJO (Plain Old Java Object)
 public class Article {
     private Long id;
     private String description;
-    private String link;
     private String title;
     private String content;
     private int countViewer;
     private String username;
-    //private Time time;
+    private Instant time;
 
     public Article() {
 
     }
 
-
-    //    public Time getTime() {
-    //	return time;
-    //    }
-    //
-    //
-    //    public void setTime(Time time) {
-    //	this.time = time;
-    //    }
-
+    public Article(String username, String title, String description, String content) {
+	this.content = content;
+	this.description = description;
+	this.title = title;
+	this.username = username;
+    }
 
     public Article(Long id, String username, String title, String description, String content) {
 	this.id = id;
@@ -32,7 +29,16 @@ public class Article {
 	this.description = description;
 	this.title = title;
 	this.username = username;
-	setLink();
+	setTime(0);
+    }
+
+    public Instant getTime() {
+	return time;
+    }
+
+    public void setTime(long secondsToAdd) {
+	time = Instant.now();
+	time = time.plusSeconds(secondsToAdd);
     }
 
     public String getUsername() {
@@ -50,7 +56,6 @@ public class Article {
     }
     public void setId(Long id) {
 	this.id = id;
-	setLink();
     }
 
     public String getContent() {
@@ -69,17 +74,6 @@ public class Article {
     public void setDescription(String description) {
 	this.description = description;
     }
-
-
-    public String getLink() {
-	return link;
-    }
-
-
-    public void setLink() {
-	link = "http://localhost:3000/articles/" + id;
-    }
-
 
     public String getTitle() {
 	return title;

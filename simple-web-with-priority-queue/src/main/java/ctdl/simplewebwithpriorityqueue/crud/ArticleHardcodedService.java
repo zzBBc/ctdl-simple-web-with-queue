@@ -1,8 +1,5 @@
 package ctdl.simplewebwithpriorityqueue.crud;
 
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.Year;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,19 +18,30 @@ public class ArticleHardcodedService {
 
     // Add static articles
     static {
-	articles.addLast(new Article(++idCounter, AUTHOR, "1. The first article", "1. The first article", "1. The first article"));
-	articles.addLast(new Article(++idCounter, AUTHOR, "2. The second article", "2. The second article", "2. The second article"));
-	articles.addLast(new Article(++idCounter, AUTHOR, "3. The third article", "3. The third article", "3. The third article"));
-	articles.addLast(new Article(++idCounter, AUTHOR, "4. The forth article", "4. The forth article", "4. The forth article"));
-	articles.addLast(new Article(++idCounter, AUTHOR, "5. The fifth article", "5. The fifth article", "5. The fifth article"));
-	articles.addLast(new Article(++idCounter, AUTHOR, "6. The sixth article", "6. The sixth article", "6. The sixth article"));
+	// Add initial articles
+	Article article1 = new Article(AUTHOR, "1. The first article", "1. The first article", "1. The first article");
+	articles.addLast(article1);
 
-	Time time = new Time(1, Month.JUNE, Year.now(), LocalTime.now());
-	Article article = new Article(++idCounter, AUTHOR, "7. The seventh article", "7. The seventh article", "7. The seventh article");
-	//article.setTime(time);
-	articles.addLast(article);
+	Article article2 = new Article(AUTHOR, "2. The second article", "2. The second article", "2. The second article");
+	articles.addLast(article2);
 
-	guestViewArticles.addFirst(new Article(++idGuestCounter, AUTHOR, "This Story Has No Twists",
+	Article article3 = new Article(AUTHOR, "3. The third article", "3. The third article", "3. The third article");
+	articles.addLast(article3);
+
+	Article article4 = new Article(AUTHOR, "4. The forth article", "4. The forth article", "4. The forth article");
+	articles.addLast(article4);
+
+	Article article5 = new Article(AUTHOR, "5. The fifth article", "5. The fifth article", "5. The fifth article");
+	articles.addLast(article5);
+
+	Article article6 = new Article(AUTHOR, "6. The sixth article", "6. The sixth article", "6. The sixth article");
+	articles.addLast(article6);
+
+	Article article7 = new Article(AUTHOR, "7. The seventh article", "7. The seventh article", "7. The seventh article");
+	articles.addLast(article7);
+
+	// Add initial guest articles
+	Article articleGuest1 = new Article(++idGuestCounter, AUTHOR, "This Story Has No Twists",
 		"Today, you will wake up. You’ll lay in bed for a few minutes. Maybe those minutes will turn to hours. Maybe hours will happen in minutes.",
 		"Today, you will wake up. You’ll lay in bed for a few minutes. Maybe those minutes will turn to hours. Maybe hours will happen in minutes.\r\n" +
 			"\r\n" +
@@ -53,8 +61,11 @@ public class ArticleHardcodedService {
 			"\r\n" +
 			"... But it’s just a dream. It’s not some profound interpretation or divine clairvoyance. Because this story has no twists.\r\n" +
 			"\r\n" +
-		"Tomorrow, you will wake up."));
-	guestViewArticles.addFirst(new Article(++idGuestCounter, AUTHOR,
+		"Tomorrow, you will wake up.");
+	articleGuest1.setTime(0);
+	guestViewArticles.addFirst(articleGuest1);
+
+	Article articleGuest2 = new Article(++idGuestCounter, AUTHOR,
 		"My experience traveling as an Asian-American in Europe last week",
 		"I saw that someone was asking about what it might be like to travel Europe as an Asian or Asian-American post-COVID. I can share my personal experience for those who are interested.",
 		"I saw that someone was asking about what it might be like to travel Europe as an Asian or Asian-American post-COVID. I can share my personal experience for those who are interested.\r\n" +
@@ -73,8 +84,11 @@ public class ArticleHardcodedService {
 			"\r\n" +
 			"I did feel uncomfortable at times. I was wearing a mask and taking photos with my camera because I enjoy photography, and I noticed that people were constantly staring at me. There was one instance where an old man walked past me and turned around to look at me three times, with a very intense stare. I ultimately decided to remove my mask and put away my camera, so that I would look more like a local. I don't think it worked completely, as some people would still look at me with genuine surprise. Perhaps they were questioning how this \"Asian tourist\" was able to get into their country. The Swiss are known for being very polite and reserved, so it would be quite unusual for someone to actually shout racist things at me in the street, I think.\r\n" +
 			"\r\n" +
-		"So that was an objective recounting of my trip. I am always going to be worried and on edge about racist treatment, but I think the fact that I have an American accent and a US passport gives me a lot of privilege when I am traveling, to be honest. I may try to travel to Austria, Germany or France this summer, after freedom of movement resumes on June 15, and perhaps the experience will be very different."));
-	guestViewArticles.addFirst(new Article(++idGuestCounter, AUTHOR,
+		"So that was an objective recounting of my trip. I am always going to be worried and on edge about racist treatment, but I think the fact that I have an American accent and a US passport gives me a lot of privilege when I am traveling, to be honest. I may try to travel to Austria, Germany or France this summer, after freedom of movement resumes on June 15, and perhaps the experience will be very different.");
+	articleGuest2.setTime(10);
+	guestViewArticles.addFirst(articleGuest2);
+
+	Article articleGuest3 = new Article(++idGuestCounter, AUTHOR,
 		"6,500 Languages",
 		"I should have wished to be rich, but felt it was too self-serving.",
 		"I should have wished to be rich, but felt it was too self-serving.\r\n" +
@@ -115,7 +129,9 @@ public class ArticleHardcodedService {
 			"\r\n" +
 			"Instead, I'm frozen in time, studying until the Wishmaster deems me an expert. If the metric is 10,000 hours, that's a little over a year for each language.\r\n" +
 			"\r\n" +
-		"This may be fine. I mean, how many world languages can there really be?"));
+		"This may be fine. I mean, how many world languages can there really be?");
+	articleGuest3.setTime(20);
+	guestViewArticles.addFirst(articleGuest3);
     }
 
     public QueueArticle findAll() {
